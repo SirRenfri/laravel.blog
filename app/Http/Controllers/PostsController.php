@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 use App\Post;
 use App\Http\Requests;
-use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\PostRequest;
 use Carbon\Carbon;
 
 class PostsController extends Controller
@@ -20,7 +20,7 @@ class PostsController extends Controller
     {
         $posts = Post::latest('published_at')->published()->get();
 
-        return view('posts.index')->with('posts', $posts);;
+        return view('posts.index')->with('posts', $posts);
     }
 
     /**
@@ -39,7 +39,7 @@ class PostsController extends Controller
      * @param  \App\Http\Requests\CreatePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreatePostRequest $request)
+    public function store(PostRequest $request)
     {
         Post::create($request->all());
 
@@ -67,7 +67,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return view('posts.edit')->with('post', $post);
     }
 
     /**
@@ -77,9 +78,12 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+
+        return redirect('posts');
     }
 
     /**

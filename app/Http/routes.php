@@ -19,7 +19,10 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('posts', 'PostsController@index');
-Route::get('posts/create', 'PostsController@create');
-Route::get('posts/{id}', 'PostsController@show');
-Route::post('posts', 'PostsController@store');
+//Route::get('posts', 'PostsController@index');
+//Route::get('posts/create', 'PostsController@create');
+//Route::get('posts/{id}', 'PostsController@show');
+//Route::post('posts', 'PostsController@store');
+//Route::get('posts/{id}/edit', 'ArticlesController@edit');
+
+Route::resource('posts', 'PostsController');
