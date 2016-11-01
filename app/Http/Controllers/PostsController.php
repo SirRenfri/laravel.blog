@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\Post;
 use App\Http\Requests;
 use App\Http\Requests\PostRequest;
 use Carbon\Carbon;
 
+/**
+ * Class PostsController
+ * @package App\Http\Controllers
+ */
 class PostsController extends Controller
 {
     /**
@@ -41,7 +46,9 @@ class PostsController extends Controller
      */
     public function store(PostRequest $request)
     {
-        Post::create($request->all());
+        $post = new Post($request->all());
+
+        Auth::user()->posts()->save($post);
 
         return redirect('posts');
     }

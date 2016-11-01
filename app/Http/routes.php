@@ -26,3 +26,7 @@ Route::get('/about', function () {
 //Route::get('posts/{id}/edit', 'ArticlesController@edit');
 
 Route::resource('posts', 'PostsController');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
